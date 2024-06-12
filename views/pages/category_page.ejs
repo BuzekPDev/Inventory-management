@@ -1,0 +1,42 @@
+<%- include('../components/html') %>
+<%- include('../components/header') %>
+
+<main class="w-full h-full">
+    <div class="flex flex-col max-w-limit mx-auto h-full">
+        <img class="w-36 h-auto" src="<%= category.image %>" alt="" width='600' height="600">
+        <h1><strong><%= category.name %></strong></h1>
+        <p>
+            <strong>Category description: </strong>
+            <%= category.description %>
+        </p>
+        <a href="<%= category._id %>/update">Update category</a>
+        <form method="post" action="<%= category._id %>/delete">
+            <button class="bg-red-500 text-white" type="submit">Delete</button>
+        </form>
+        
+        <% if (typeof deleteFailed !== 'undefined') { %>
+            <p class="text-red-600"><strong>Delete all products in category before deleting a category</strong></p>
+        <% } %>
+        <hr>
+        <h2 class="mt-6 text-lg">
+            <strong>All products in category:</strong>
+        </h2>
+        <div class="my-6">
+            <% productList.forEach(product => { %>
+                <div class="flex flex-col my-6">
+                    <img class="w-24 h-auto" src="<%= product.image %>" width="600" height="600" alt="">
+                    <h3><a href="<%= product.url %>"><strong><%= product.name %></strong></a></h3>
+                    <p>
+                        <strong>Stock: </strong>
+                        <%= product.stock %>
+                    </p>
+                    <p>
+                        <strong>MSRP: </strong>
+                        <%= product.msrp %>
+                    </p>
+                </div>
+                <hr>
+            <% }) %>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,51 @@
+<%- include('../components/html') %>
+<%- include('../components/header') %>
+
+<main class="w-full h-full">
+    <div class="flex flex-col max-w-limit mx-auto h-full">
+        <form method="post">
+            <div class="flex flex-col my-2">
+                <label for="name">
+                    <strong>Category name:</strong>
+                </label>
+                <input id="name" name="name" placeholder="Booster box..." required type="text" class="border-2 border-neutral-300 p-1" value="<%= typeof category === 'undefined' ? '' : category.name %>">
+            </div>
+            <div class="flex flex-col my-2">
+                <label for="description">
+                    <strong>Category description:</strong>
+                </label>
+                <textarea id="description" name="description" placeholder="Very cool product category..." required type="text" class="border-2 border-neutral-300 p-1" ><%= typeof category === 'undefined' ? '' : category.description %></textarea>
+            </div>
+            <div class="flex flex-col my-2">
+                <label for="image">
+                    <strong>Image: </strong>
+                </label>
+                <input id="image" name="image" onchange="onChangeHandler(this.value)" placeholder="https://image-url.com" required type="text" class="border-2 border-neutral-300 p-1" value="<%= typeof category === 'undefined' ? '' : category.image %>">
+            </div>
+            <label> 
+                <strong>Image Preview:</strong>
+                <img class="border-2 box-border border-neutral-300" src="<%= typeof category === 'undefined' ? '' : category.image %>" onerror="this.src = '/images/placeholder.webp'" alt="" width="600" height="600" id="img-preview">
+            </label>
+            <button type="submit">Submit</button>
+        </form>
+        <% if (typeof errors !== 'undefined') { %>
+            <ul>
+            <% errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+            </ul>
+        <% } %>
+    </div>
+</main>
+
+
+<script>
+    const imgPreview = document.querySelector('#img-preview')
+    const imageInput = document.querySelector('#image')
+
+    function onChangeHandler (val) {
+        imgPreview.src = val
+        console.log(val)
+    }
+
+</script>

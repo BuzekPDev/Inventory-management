@@ -1,0 +1,23 @@
+<%- include('../components/html') %>
+<%- include('../components/header') %>
+
+<main class="w-full h-full">
+    <div class="max-w-limit mx-auto">
+        <a href="category/add">Add new category</a>
+        <% categoryList.forEach(category => { %>
+           <div class="flex flex-col my-6">
+                <img class="w-36 h-auto" src="<%= category.image %>" width="600" height="600" alt="">
+                <h2 class="text-lg">
+                    <a href="<%= category.url %>">
+                        <strong><%= category.name %></strong>
+                    </a>
+                </h2>
+                <p class="flex flex-col">
+                    <strong>Category description:</strong>
+                    <span><%= category.description %></span>
+                </p>
+            </div>
+            <hr>
+        <% }) %>
+    </div>
+</main>

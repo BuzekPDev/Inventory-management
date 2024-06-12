@@ -1,0 +1,48 @@
+<%- include('../components/html') %>
+<%- include('../components/header') %>
+
+<main class="w-full h-full">
+    <div class="max-w-limit mx-auto">
+        <div class="flex flex-col my-6">
+            <img class="w-36 h-auto" src="<%= edition.logo %>" width="600" height="600" alt="">
+            <h2 class="text-lg">
+                <a href="<%= edition.url %>">
+                    <strong><%= edition.name %></strong>
+                </a>
+            </h2>
+            <p class="flex flex-col">
+                <strong>Edition shorthand:</strong>
+                <span><%= edition.shorthand %></span>
+            </p>
+            <p class="flex flex-col">
+                <strong>Release date:</strong>
+                <span><%= edition.release_date %></span>
+            </p>
+            <a href="<%= edition._id %>/update">Update edition</a>
+            <form action="<%= edition._id %>/delete" method="post">
+                <button class="bg-red-500 text-white">Delete</button>
+            </form>
+        </div>
+        <% if (typeof deleteFailed !== 'undefined') { %>
+            <p class="text-red-600"><strong>Delete all expansions from an edition before deleting an edition</strong></p>
+        <% } %>
+        <hr>
+        <h2><strong>Expansions:</strong></h2>
+        <% expansionList.forEach(expansion => { %>
+            <div class="flex flex-col my-6">
+                <img class="w-24 h-auto" src="<%= expansion.logo %>" width="600" height="600" alt="">
+                <h2 class="text-lg">
+                    <a href="<%= expansion.url %>">
+                        <strong><%= expansion.name %></strong>
+                    </a>
+                </h2>
+                <p class="flex flex-col">
+                    <strong>Release date:</strong>
+                    <span><%= expansion.release_date %></span>
+                </p>
+            </div>
+            <hr>
+        <% }) %>
+        
+    </div>
+</main>

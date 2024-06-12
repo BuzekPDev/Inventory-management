@@ -1,0 +1,27 @@
+<%- include('../components/html') %>
+<%- include('../components/header') %>
+
+<main class="w-full h-full">
+    <div class="max-w-limit mx-auto">
+        <a href="expansion/add">Add new expansion</a>
+        <% expansionList.forEach(expansion => { %>
+           <div class="flex flex-col my-6">
+                <img class="w-36 h-auto" src="<%= expansion.logo %>" width="600" height="600" alt="">
+                <h2 class="text-lg">
+                    <a href="<%= expansion.url %>">
+                        <strong><%= expansion.name %></strong>
+                    </a>
+                </h2>
+                <p class="flex flex-col">
+                    <strong>expansion shorthand:</strong>
+                    <span><%= expansion.shorthand %></span>
+                </p>
+                <p class="flex flex-col">
+                    <strong>Release date:</strong>
+                    <span><%= expansion.release_date %></span>
+                </p>
+            </div>
+            <hr>
+        <% }) %>
+    </div>
+</main>

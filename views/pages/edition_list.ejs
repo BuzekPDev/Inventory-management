@@ -1,0 +1,27 @@
+<%- include('../components/html') %>
+<%- include('../components/header') %>
+
+<main class="w-full h-full">
+    <div class="max-w-limit mx-auto">
+        <a href="edition/add">Add new edition</a>
+        <% editionList.forEach(edition => { %>
+           <div class="flex flex-col my-6">
+                <img class="w-36 h-auto" src="<%= edition.logo %>" width="600" height="600" alt="">
+                <h2 class="text-lg">
+                    <a href="<%= edition.url %>">
+                        <strong><%= edition.name %></strong>
+                    </a>
+                </h2>
+                <p class="flex flex-col">
+                    <strong>Edition shorthand:</strong>
+                    <span><%= edition.shorthand %></span>
+                </p>
+                <p class="flex flex-col">
+                    <strong>Release date:</strong>
+                    <span><%= edition.release_date %></span>
+                </p>
+            </div>
+            <hr>
+        <% }) %>
+    </div>
+</main>

@@ -1,0 +1,126 @@
+<%- include('../components/html.ejs') %>
+<%- include('../components/header.ejs') %>
+
+<main class="w-full h-full">
+    <div class="flex flex-col max-w-limit mx-auto h-full">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="flex flex-col my-2">
+                <label for="name">
+                    <strong>Product name:</strong>
+                </label>
+                <input required class="border-2 border-neutral-300 p-1" id="name" type="text" name="name" placeholder="Steam Siege booster pack..." value="<%= typeof product === 'undefined' ? '' : product.name %>">
+            </div>
+
+            <div class="flex flex-col my-2">
+                <label for="description">
+                    <strong>Product description:</strong>
+                </label>
+                <textarea class="border-2 border-neutral-300 p-1" id="description" type="text" name="description" placeholder="Pokemon Steam Siege booster pack is a booster from the XY steam siege expansion..." value=""><%= typeof product === 'undefined' ? '' : product.description %></textarea>
+            </div>
+
+            <div class="flex flex-col my-2">
+                <label for="contents">
+                    <strong>Product contents: </strong> <span class="text-sm opacity-80">comma seperated list</span>
+                </label>
+                <textarea required class="border-2 border-neutral-300 p-1" id="contents" type="text" name="contents" placeholder="Pokemon Steam Siege booster pack is a booster from the XY steam siege expansion..." value=""><%= typeof product === 'undefined' ? '' : product.contents %></textarea>
+            </div>
+
+            <div class="flex flex-col">
+                <label for="category">
+                    <strong>Product category:</strong>
+                </label>
+                <select name="category" id="category" class="border-2 border-neutral-300">
+                    <option value="">--Select a category--</option>
+                    <% categoryList.forEach(category => { %>
+                        <% if (typeof product !== 'undefined' && product.category.toString() === category._id.toString()) { %>
+                            <option value="<%= category._id %>" selected><%= category.name %></option>
+                        <% } else { %>
+                            <option value="<%= category._id %>"><%= category.name %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="flex flex-col my-2">
+                <label for="edition">
+                    <strong>Edition:</strong>
+                </label>
+                <select name="edition" id="edition" class="border-2 border-neutral-300">
+                    <option value="">--Select an edition--</option>
+                    <% editionList.forEach(edition => { %>
+                        <% if (typeof product !== 'undefined' && product.edition.toString() === edition._id.toString()) { %>
+                            <option value="<%= edition._id %>" selected><%= edition.name %></option>
+                        <% } else { %>
+                            <option value="<%= edition._id %>"><%= edition.name %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="flex flex-col my-2">
+                <label for="expansion">
+                    <strong>Expansion:</strong>
+                </label>
+                <select name="expansion" id="expansion" class="border-2 border-neutral-300">
+                    <option value="">--Select an expansion--</option>
+                    <% expansionList.forEach(expansion => { %>
+                        <% if (typeof product !== 'undefined' && product.expansion.toString() === expansion._id.toString()) { %>
+                            <option value="<%= expansion._id %>" selected><%= expansion.name %></option>
+                        <% } else { %>
+                            <option value="<%= expansion._id %>"><%= expansion.name %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+            </div>
+
+            <div class="flex flex-col my-2">
+                <label for="msrp">
+                    <strong>MSRP:</strong>
+                </label>
+                <input class="border-2 border-neutral-300 p-1" id="msrp" type="number" name="msrp" min="0" onchange="validateMin(this)" placeholder="Price in czk" value="<%= typeof product === 'undefined' ? '' : product.msrp %>">
+            </div>
+
+            <div class="flex flex-col my-2">
+                <label for="stock">
+                    <strong>Stock:</strong>
+                </label>
+                <input class="border-2 border-neutral-300 p-1" id="stock" type="number" name="stock" min="0" onchange="validateMin(this)" placeholder="Price in czk" value="<%= typeof product === 'undefined' ? '' : product.stock %>">
+            </div>
+           
+            <input type="file" name="image" id="image" class="bg-red-500">
+            
+            <button type="submit">Add product</button>
+        </form>
+
+        <label> 
+            <strong>Image Preview:</strong>
+            <img class="border-2 box-border border-neutral-300" src="<%= typeof product === 'undefined' ? '' : product.image %>" onerror="this.src = '/images/placeholder.webp'" alt="" width="600" height="600" id="img-preview">
+        </label>
+    </div>
+
+    
+    
+    <% if (typeof errors !== 'undefined') { %>
+        <ul>
+        <% errors.forEach(error => { %>
+            <li><%= error.msg %></li>
+        <% }) %>
+        </ul>
+    <% } %>
+</main>
+
+<script>
+    const imgPreview = document.querySelector('#img-preview')
+    const imageInput = document.querySelector('#image')
+
+    function onChangeHandler (val) {
+        imgPreview.src = val
+        console.log(val)
+    }
+
+    function validateMin (input) {
+        input.value < 0 ? input.value = 0 : ''
+    }
+
+</script>
+

@@ -1,0 +1,68 @@
+<%- include('../components/html') %>
+<%- include('../components/header') %>
+
+<main class="w-full h-full">
+    <div class="max-w-limit mx-auto">
+        <div class="flex flex-col my-6">
+            <img class="w-36 h-auto" src="<%= expansion.logo %>" width="600" height="600" alt="">
+            <h2 class="text-lg">
+                <a href="<%= expansion.url %>">
+                    <strong><%= expansion.name %></strong>
+                </a>
+            </h2>
+            <p class="flex flex-col">
+                <strong>Expansion shorthand: </strong>
+                <span><%= expansion.shorthand %></span>
+            </p>
+            <p class="flex flex-col">
+                <strong>Expansion description: </strong>
+                <span><%= expansion.description %></span>
+            </p>
+            <p class="flex flex-col">
+                <strong>Expansion type: </strong>
+                <span><a href="<%= expansion.edition.url %>"><%= expansion.set_type %></span>
+            </p>
+            <p class="flex flex-col">
+                <strong>Edition: </strong>
+                <span><%= expansion.edition.name %></span>
+            </p>
+            <p class="flex flex-col">
+                <strong>Release date:</strong>
+                <span><%= expansion.release_date %></span>
+            </p>
+            <a href="<%= expansion._id %>/update">Update Expansion</a>
+            <form action="<%= expansion._id %>/delete" method="post">
+                <button class="bg-red-500 text-white">Delete</button>
+            </form>
+        </div>
+        <% if (typeof deleteFailed !== 'undefined') { %>
+            <p class="text-red-600"><strong>Delete all products from an Expansion before deleting an Expansion</strong></p>
+        <% } %>
+        <hr>
+        <h2><strong>Products:</strong></h2>
+        <% productList.forEach(product => { %>
+            <div class="flex flex-col my-6">
+                <img class="w-24 h-auto" src="<%= product.image %>" width="600" height="600" alt="">
+                <h2 class="text-lg">
+                    <a href="<%= product.url %>">
+                        <strong><%= expansion.name %></strong>
+                    </a>
+                </h2>
+                <p class="flex flex-col">
+                    <strong>Product category:</strong>
+                    <span><%= product.category.name %></span>
+                </p>
+                <p class="flex flex-col">
+                    <strong>MSRP:</strong>
+                    <span><%= product.msrp %></span>
+                </p>
+                <p class="flex flex-col">
+                    <strong>Stock:</strong>
+                    <span><%= product.stock %> pcs</span>
+                </p>
+            </div>
+            <hr>
+        <% }) %>
+        
+    </div>
+</main>

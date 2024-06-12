@@ -1,0 +1,41 @@
+<%- include('../components/html') %>
+<%- include('../components/header') %>
+
+<main class="w-full h-full">
+    <div class="flex flex-col max-w-limit mx-auto h-full">
+        <img class="w-36 h-auto" src="<%= product.image %>" width="572" height="599">
+        <h2 class="text-lg"><strong><%= product.name %></strong></h2>
+        <p>
+            <strong>Product Category: </strong>
+            <a href="<%= product.category.url %>"><%= product.category.name %></a>
+        </p>
+        <p>
+            <strong>Expansion: </strong>
+            <a href="<%= product.expansion.url %>"><%= product.edition.name %> - <%= product.expansion.name %> </a>
+        </p>
+        <p>
+            <strong>MSRP: </strong>
+            <%= product.msrp %> czk
+        </p>
+        <p>
+            <strong>Stock: </strong>
+            <%= product.stock %> pcs 
+        </p>
+        <div>
+            <strong>Description:</strong>
+            <p><%= product.description %><p>
+        </div>
+        <div>
+            <strong>Contents:</strong>
+            <ul>
+                <% product.contents.forEach(val => { %>
+                    <li class="list-disc"><%= val %></li>
+                <% }) %>
+            </ul>
+        </div>
+        <a href="<%= product._id %>/update">Update product</a>
+        <form action="<%= product._id %>/delete" method="post">
+            <button class="bg-red-500 text-white">Delete</button>
+        </form>
+    </div>
+</main>
